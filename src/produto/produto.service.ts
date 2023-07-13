@@ -3,7 +3,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProdutoEntity } from "./produto.entity";
-import { ListaProdutoDTO } from "./dto/ListaProduto.dto";
 import { AtualizaProdutoDTO } from "./dto/atualizaProduto.dto";
 
 @Injectable()
@@ -19,10 +18,7 @@ export class ProdutoService {
 
   async listProdutos() {
     const produtosSalvos = await this.produtoRepository.find();
-    const produtosLista = produtosSalvos.map(
-      (produto) => new ListaProdutoDTO(produto.id, produto.nome),
-    )
-    return produtosLista;
+    return produtosSalvos;
   }
 
   async atualizaProduto(id: string, novosDados: AtualizaProdutoDTO) {
